@@ -10,27 +10,18 @@ import java.io.*;
 public class DemoFunctionSet {
     private static FunctionSet functionSet;
 
-    /**
-     * Вывод элементов массива double на консоль
-     */
-    private static void outputSet(double[] set) {
-        for (double x : set) {
+    private static void outputSet(double[] arr) {
+        for (double x : arr) {
             System.out.println(x);
         }
     }
 
-    /**
-     * Вывод элементов массива int на консоль
-     */
-    private static void outputSet(int[] set) {
-        for (int x : set) {
+    private static void outputSet(int[] arr) {
+        for (int x : arr) {
             System.out.println(x);
         }
     }
 
-    /**
-     * Вывод матрицы на консоль
-     */
     private static void outputMatrix(double[][] matrix) {
         if (matrix == null) {
             System.out.println("Количество столбцов в первой матрице не совпадает с количеством строк во второй");
@@ -45,95 +36,76 @@ public class DemoFunctionSet {
         System.out.println();
     }
 
-    /**
-     * Проверка правильности метода numberCharacters
-     * Вспомогательный метод для demoNumberCharacters
-     */
     private static boolean outputArray(String str, char... ch) {
-        int[] temp;
-        temp = functionSet.numberCharacters(str, ch);
-        outputSet(temp);
-        boolean bool = true;
-        if (temp[0] != 1) {
-            bool = false;
-        } else if (temp[1] != 2) {
-            bool = false;
-        } else if (temp[2] != 3) {
-            bool = false;
+        int[] numberOccurrences;
+        numberOccurrences = functionSet.numberCharacters(str, ch);
+        outputSet(numberOccurrences);
+        boolean noneError = true;
+        if (numberOccurrences[0] != 1) {
+            noneError = false;
+        } else if (numberOccurrences[1] != 2) {
+            noneError = false;
+        } else if (numberOccurrences[2] != 3) {
+            noneError = false;
         }
-        return bool;
+        return noneError;
     }
 
-    /**
-     * Проверка правильности метода numberCharacters
-     *
-     * @return Правда, если нет ни одной ошибки, и ложь, в противном случае
-     */
     public static boolean demoNumberCharacters() {
-        char[] temp2 = {'q', 'w', 'r'};
-        String temp3 = "qwr";
+        char[] numberOccurrences = {'q', 'w', 'r'};
+        String numberOccurrences2 = "qwr";
         System.out.println();
-        boolean bool = true;
-        if (!outputArray("qwewerrr", temp3.toCharArray())) {
-            bool = false;
+        boolean noneError = true;
+        if (!outputArray("qwewerrr", numberOccurrences2.toCharArray())) {
+            noneError = false;
         }
-        if (!outputArray("qwewerrr", temp2)) {
-            if (bool) {
-                bool = false;
+        if (!outputArray("qwewerrr", numberOccurrences)) {
+            if (noneError) {
+                noneError = false;
             }
         }
         if (!outputArray("qwewerrr", 'q', 'w', 'r')) {
-            if (bool) {
-                bool = false;
+            if (noneError) {
+                noneError = false;
             }
         }
-        return bool;
+        return noneError;
     }
 
-    /**
-     * Проверка правильности метода sameElementIs
-     *
-     * @return Правда, если нет ни одной ошибки, и ложь, в противном случае
-     */
-    public static boolean demoSameElementIs() {
+    public static boolean demohasSameElements() {
         String[] strs;
-        boolean bool;
-        boolean boolReturn = true;
+        boolean noneError;
+        boolean noneErrorOut = true;
         System.out.println();
         strs = new String[]{""};
-        bool = functionSet.sameElementIs(strs);
-        if (bool) {
-            boolReturn = false;
+        noneError = functionSet.hasSameElements(strs);
+        if (noneError) {
+            noneErrorOut = false;
         }
-        System.out.println(bool);
+        System.out.println(noneError);
         strs = new String[]{"a"};
-        bool = functionSet.sameElementIs(strs);
-        if (bool) {
-            boolReturn = false;
+        noneError = functionSet.hasSameElements(strs);
+        if (noneError) {
+            noneErrorOut = false;
         }
-        System.out.println(bool);
+        System.out.println(noneError);
         strs = new String[]{"qwe", "ewq", "ret"};
-        bool = functionSet.sameElementIs(strs);
-        if (bool) {
-            boolReturn = false;
+        noneError = functionSet.hasSameElements(strs);
+        if (noneError) {
+            noneErrorOut = false;
         }
-        System.out.println(bool);
+        System.out.println(noneError);
         strs = new String[]{"qwe", "ewq", "ret", "ret"};
-        bool = functionSet.sameElementIs(strs);
-        if (!bool) {
-            boolReturn = false;
+        noneError = functionSet.hasSameElements(strs);
+        if (!noneError) {
+            noneErrorOut = false;
         }
-        System.out.println(bool);
-        return boolReturn;
+        System.out.println(noneError);
+        return noneErrorOut;
     }
 
-    /**
-     * Проверка правильности метода matrixMultiplication
-     *
-     * @return Правда, если нет ни одной ошибки, и ложь, в противном случае
-     */
-    public static boolean demoMatrixMultiplication() {
-        boolean bool = true;
+    public static boolean demoGetMultiplicationMatrix() {
+        boolean noneError = true;
         double[][] testMatrix;
         System.out.println();
         double[][] matrix = {
@@ -145,76 +117,68 @@ public class DemoFunctionSet {
                 {4.4, 3.3},
                 {2.2, 1.1},
         };
-        testMatrix = functionSet.matrixMultiplication(matrix, matrix2);
+        testMatrix = functionSet.getMultiplicationMatrix(matrix, matrix2);
         outputMatrix(testMatrix);
         if (Math.abs(testMatrix[0][0] - 24.2) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[0][1] - 16.94) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[1][0] - 67.76) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[1][1] - 49.61) > .005) {
-            bool = false;
+            noneError = false;
         }
-        testMatrix = functionSet.matrixMultiplication(matrix2, matrix);
+        testMatrix = functionSet.getMultiplicationMatrix(matrix2, matrix);
         outputMatrix(testMatrix);
         if (Math.abs(testMatrix[0][0] - 31.46) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[0][1] - 44.77) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[0][2] - 58.08) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[1][0] - 19.36) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[1][1] - 27.83) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[1][2] - 36.3) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[2][0] - 7.26) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[2][1] - 10.89) > .005) {
-            bool = false;
+            noneError = false;
         } else if (Math.abs(testMatrix[2][2] - 14.52) > .005) {
-            bool = false;
+            noneError = false;
         }
-        testMatrix = functionSet.matrixMultiplication(matrix, matrix);
+        testMatrix = functionSet.getMultiplicationMatrix(matrix, matrix);
         outputMatrix(testMatrix);
         if (testMatrix != null) {
-            bool = false;
+            noneError = false;
         }
-        return bool;
+        return noneError;
     }
 
-    /**
-     * Проверка правильности метода intersecSortArr
-     *
-     * @return Правда, если нет ни одной ошибки, и ложь, в противном случае
-     */
-    public static boolean demoIntersecSortArr() {
-        boolean bool = true;
+    public static boolean demoGetSortedIntersectionArrays() {
+        boolean noneError = true;
         double[] testArray;
         System.out.println();
-        double[] set = {4, 3, 3, 2, 1, 0, 6, 7, 9};
-        double[] set2 = {5, 3, 1, 1, 4, 0, 6, 8};
-        testArray = functionSet.intersecSortArr(set, set2);
+        double[] arr = {4, 3, 3, 2, 1, 0, 6, 7, 9};
+        double[] arr2 = {5, 3, 1, 1, 4, 0, 6, 8};
+        testArray = functionSet.getSortedIntersectionArrays(arr, arr2);
         outputSet(testArray);
         if (testArray[0] != 0) {
-            bool = false;
+            noneError = false;
         } else if (testArray[1] != 1) {
-            bool = false;
+            noneError = false;
         } else if (testArray[2] != 3) {
-            bool = false;
+            noneError = false;
         } else if (testArray[3] != 4) {
-            bool = false;
+            noneError = false;
         } else if (testArray[4] != 6) {
-            bool = false;
+            noneError = false;
         }
-        return bool;
+        return noneError;
     }
 
-    /**
-     * Запуск всех тестовых методов
-     */
     public static void main(String args[]) throws IOException {
         try {
             functionSet = new FunctionSet();
@@ -223,20 +187,20 @@ public class DemoFunctionSet {
             } else {
                 System.out.println("Функция \"demoNumberCharacters\" отработала с ошибками");
             }
-            if (demoSameElementIs()) {
-                System.out.println("Функция \"demoSameElementIs\" отработала правильно");
+            if (demohasSameElements()) {
+                System.out.println("Функция \"demohasSameElements\" отработала правильно");
             } else {
-                System.out.println("Функция \"demoSameElementIs\" отработала с ошибками");
+                System.out.println("Функция \"demohasSameElements\" отработала с ошибками");
             }
-            if (demoMatrixMultiplication()) {
-                System.out.println("Функция \"demoMatrixMultiplication\" отработала правильно");
+            if (demoGetMultiplicationMatrix()) {
+                System.out.println("Функция \"demoGetMultiplicationMatrix\" отработала правильно");
             } else {
-                System.out.println("Функция \"demoMatrixMultiplication\" отработала с ошибками");
+                System.out.println("Функция \"demoGetMultiplicationMatrix\" отработала с ошибками");
             }
-            if (demoIntersecSortArr()) {
-                System.out.println("Функция \"demoIntersecSortArr\" отработала правильно");
+            if (demoGetSortedIntersectionArrays()) {
+                System.out.println("Функция \"demoGetSortedIntersectionArrays\" отработала правильно");
             } else {
-                System.out.println("Функция \"demoIntersecSortArr\" отработала с ошибками");
+                System.out.println("Функция \"demoGetSortedIntersectionArrays\" отработала с ошибками");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -8,9 +8,6 @@
 public class FunctionSet {
     /**
      * Подсчёт количества элементов массива без учёта дублей
-     *
-     * @param arr Массив с возможно повторяющимися элементами
-     * @return Число элементов массива без учёта дублей
      */
     private int shift(double[] arr) {
         int arrlen = arr.length;
@@ -28,19 +25,14 @@ public class FunctionSet {
 
     /**
      * Настройка начальных параметров для сортировки Хоара
-     *
-     * @param items Массив для сортировки
      */
     private void qsort(double[] items) {
+
         qs(items, 0, items.length - 1);
     }
 
     /**
      * Быстрая рекурсивная сортировка Хоара
-     *
-     * @param items Массив для сортировки
-     * @param left  Левая граница
-     * @param right Правая граница
      */
     private void qs(double[] items, int left, int right) {
         int i, j;
@@ -72,10 +64,9 @@ public class FunctionSet {
      *
      * @param str Строка для поиска
      * @param ch  Массив символов, количество вхождений которых нужно искать
-     * @return Количество вхождений каждого символа соответственно
      */
     public int[] numberCharacters(String str, char... ch) {
-        int[] temp = new int[ch.length];
+        int[] numberOccurrences = new int[ch.length];
         int count;
         for (int i = 0; i < ch.length; i++) {
             count = 0;
@@ -84,52 +75,45 @@ public class FunctionSet {
                     count++;
                 }
             }
-            temp[i] = count;
+            numberOccurrences[i] = count;
         }
-        return temp;
+        return numberOccurrences;
     }
 
     /**
      * Определяет, что в массиве строк есть одинаковые элементы
-     *
-     * @param strs Массив строк
-     * @return Правда, если есть одинаковые строки, и ложь, если все строки разные
      */
-    public boolean sameElementIs(String[] strs) {
-        boolean bool = false;
+    public boolean hasSameElements(String[] strs) {
+        boolean sameLine = false;
         if (strs.length > 1) {
-            int lengthMinus1 = strs.length - 1;
-            for (int i = 0; i < lengthMinus1; i++) {
+            done:
+            for (int i = 0; i < strs.length - 1; i++) {
                 for (int j = i + 1; j < strs.length; j++) {
                     if (strs[i].equals(strs[j])) {
-                        bool = true;
-                        break;
+                        sameLine = true;
+                        break done;
                     }
                 }
             }
         }
-        return bool;
+        return sameLine;
     }
 
     /**
-     * Возвращает перемножение двух матриц
-     *
-     * @param matrix  Левая матрица
-     * @param matrix2 Правая матрица
-     * @return Произведение матриц, если это возможно, и null, если нет
+     * Возвращает перемножение двух матриц, если это возможно, и null, если нет
      */
-    public double[][] matrixMultiplication(double[][] matrix, double[][] matrix2) {
+    public double[][] getMultiplicationMatrix(double[][] matrix, double[][] matrix2) {
         double[][] result;
-        int m = matrix.length;
-        int n = matrix[0].length;
-        int k = matrix2.length;
-        int l = matrix2[0].length;
-        if (n == k) {
-            result = new double[m][l];
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < l; j++) {
+        int rowCountFirstMatrix = matrix.length;
+        int columnCountFirstMatrix = matrix[0].length;
+        int rowCountSecondMatrix = matrix2.length;
+        int columnCountSecondMatrix = matrix2[0].length;
+        if (columnCountFirstMatrix == rowCountSecondMatrix) {
+            result = new double[rowCountFirstMatrix][columnCountSecondMatrix];
+            for (int i = 0; i < rowCountFirstMatrix; i++) {
+                for (int j = 0; j < columnCountSecondMatrix; j++) {
                     result[i][j] = 0;
-                    for (int s = 0; s < n; s++) {
+                    for (int s = 0; s < columnCountFirstMatrix; s++) {
                         result[i][j] += matrix[i][s] * matrix2[s][j];
                     }
                 }
@@ -142,21 +126,18 @@ public class FunctionSet {
 
     /**
      * Возвращает пересечение массивов double
-     *
-     * @param arr  Первый массив
-     * @param arr2 Второй массив
-     * @return Пересечение массивов
      */
-    public double[] intersecSortArr(double[] arr, double[] arr2) {
+    public double[] getSortedIntersectionArrays(double[] arr, double[] arr2) {
+        qsort(arr);
+        qsort(arr2);
+        int numberUniqueValuesFirstArray = shift(arr);
+        int numberUniqueValuesSecondArray = shift(arr2);
+        double[] result = new double[(numberUniqueValuesFirstArray < numberUniqueValuesSecondArray)
+                ? numberUniqueValuesSecondArray : numberUniqueValuesFirstArray];
         int k = 0;
         int a = 0;
         int b = 0;
-        qsort(arr);
-        qsort(arr2);
-        int m = shift(arr);
-        int n = shift(arr2);
-        double[] result = new double[(m < n) ? n : m];
-        while (a < m && b < n) {
+        while (a < numberUniqueValuesFirstArray && b < numberUniqueValuesSecondArray) {
             if (arr[a] < arr2[b]) {
                 a++;
             } else if (arr[a] > arr2[b]) {
